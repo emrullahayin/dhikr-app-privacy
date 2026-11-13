@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +10,12 @@
 <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/png" href="icon.png">
 <script>
-  // Pick the language before first paint: ?lang= → saved choice → browser.
+  // Pick the language before first paint: ?lang= → saved choice → English.
   (function () {
     var q = new URLSearchParams(location.search).get('lang');
     var saved = null;
     try { saved = localStorage.getItem('lang'); } catch (e) {}
-    var nav = (navigator.language || '').toLowerCase();
-    var lang = q === 'tr' || q === 'en' ? q : saved || (nav.indexOf('tr') === 0 ? 'tr' : 'en');
+    var lang = q === 'tr' || q === 'en' ? q : saved === 'tr' || saved === 'en' ? saved : 'en';
     document.documentElement.lang = lang;
   })();
 </script>
@@ -397,7 +396,7 @@
         apply(lang);
       });
     }
-    apply(document.documentElement.lang === 'en' ? 'en' : 'tr');
+    apply(document.documentElement.lang === 'tr' ? 'tr' : 'en');
   })();
 </script>
 </body>
