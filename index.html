@@ -3,12 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gizlilik Politikası · Zikirmatik</title>
-<meta name="description" content="Zikirmatik gizlilik politikası: uygulama hiçbir kişisel veri toplamaz, tüm veriler yalnızca cihazınızda saklanır.">
+<title>Gizlilik Politikası · Privacy Policy · Zikirmatik</title>
+<meta name="description" content="Zikirmatik gizlilik politikası / privacy policy: uygulama hiçbir kişisel veri toplamaz. The app collects no personal data; everything stays on your device.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0d1e1a" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/png" href="icon.png">
+<script>
+  // Pick the language before first paint: ?lang= → saved choice → browser.
+  (function () {
+    var q = new URLSearchParams(location.search).get('lang');
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    var nav = (navigator.language || '').toLowerCase();
+    var lang = q === 'tr' || q === 'en' ? q : saved || (nav.indexOf('tr') === 0 ? 'tr' : 'en');
+    document.documentElement.lang = lang;
+  })();
+</script>
 <style>
   :root {
     --bg: #0d1e1a;
@@ -38,6 +49,10 @@
     }
   }
 
+  /* Show only the content for the active language. */
+  html[lang="tr"] [data-lang="en"],
+  html[lang="en"] [data-lang="tr"] { display: none !important; }
+
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
@@ -48,14 +63,26 @@
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--accent); text-underline-offset: 3px; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
   .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
   header {
-    padding: 56px 0 32px;
+    padding: 24px 0 32px;
     background: radial-gradient(600px 240px at 50% -40px, var(--accent-tint), transparent 70%);
   }
+  .topbar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+  .langs {
+    display: inline-flex; gap: 4px; padding: 4px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  }
+  .langs button {
+    font: inherit; font-size: 0.85rem; font-weight: 600;
+    color: var(--muted); background: transparent;
+    border: 0; border-radius: 999px; padding: 6px 14px; min-height: 32px; cursor: pointer;
+  }
+  .langs button[aria-pressed="true"] { color: var(--accent); background: var(--accent-tint); }
+
   .brand { display: flex; align-items: center; gap: 16px; }
   .brand img {
     width: 64px; height: 64px; border-radius: 16px; flex: none;
@@ -126,6 +153,9 @@
     margin: 12px 0;
   }
   .note svg { flex: none; margin-top: 3px; color: var(--accent); }
+  dl.contact { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 8px 0 0; }
+  dl.contact dt { color: var(--muted); }
+  dl.contact dd { margin: 0; }
 
   footer {
     border-top: 1px solid var(--line);
@@ -135,7 +165,6 @@
   }
 
   @media (max-width: 640px) {
-    header { padding-top: 40px; }
     .summary { grid-template-columns: 1fr; }
     th, td { padding: 10px 12px; }
     .hide-sm { display: none; }
@@ -145,52 +174,60 @@
 <body>
 <header>
   <div class="wrap">
+    <div class="topbar">
+      <div class="langs" role="group" aria-label="Dil / Language">
+        <button type="button" data-set-lang="tr" lang="tr">Türkçe</button>
+        <button type="button" data-set-lang="en" lang="en">English</button>
+      </div>
+    </div>
     <div class="brand">
       <img src="icon.png" alt="" width="64" height="64">
       <div>
         <div class="app">Zikirmatik</div>
-        <div class="tag">Dijital tesbih ve zikir sayacı</div>
+        <div class="tag" data-lang="tr">Dijital tesbih ve zikir sayacı</div>
+        <div class="tag" data-lang="en">Digital tasbih and dhikr counter</div>
       </div>
     </div>
-    <h1>Gizlilik Politikası</h1>
-    <p class="lede">Zikirmatik hiçbir kişisel veri toplamaz. Zikirleriniz, istatistikleriniz ve ayarlarınız yalnızca kendi cihazınızda kalır.</p>
-    <p class="meta">Son güncelleme: 13 Kasım 2026</p>
+
+    <div data-lang="tr" lang="tr">
+      <h1>Gizlilik Politikası</h1>
+      <p class="lede">Zikirmatik hiçbir kişisel veri toplamaz. Zikirleriniz, istatistikleriniz ve ayarlarınız yalnızca kendi cihazınızda kalır.</p>
+      <p class="meta">Son güncelleme: 13 Kasım 2026</p>
+    </div>
+    <div data-lang="en" lang="en">
+      <h1>Privacy Policy</h1>
+      <p class="lede">Zikirmatik does not collect any personal data. Your dhikr counts, statistics and settings stay on your own device.</p>
+      <p class="meta">Last updated: November 13, 2026</p>
+    </div>
   </div>
 </header>
 
-<main class="wrap">
+<!-- ───────────────────────── Türkçe ───────────────────────── -->
+<main class="wrap" data-lang="tr" lang="tr">
   <ul class="summary" aria-label="Özet">
     <li class="card">
-      <div class="icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <strong>Veri toplanmaz</strong>
       <span>Hesap, kişisel bilgi veya kullanım takibi yok.</span>
     </li>
     <li class="card">
-      <div class="icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-      </div>
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
       <strong>Sadece cihazda</strong>
       <span>Tüm veriler telefonunuzun yerel depolamasında saklanır.</span>
     </li>
     <li class="card">
-      <div class="icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><path d="M12 20h.01"/></svg>
-      </div>
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><path d="M12 20h.01"/></svg></div>
       <strong>Çevrimdışı ve reklamsız</strong>
       <span>İnternet gerekmez; reklam veya analitik yok.</span>
     </li>
   </ul>
 
-  <section aria-labelledby="veri">
-    <h2 id="veri">Hangi veriler var, nerede duruyor?</h2>
+  <section aria-labelledby="tr-veri">
+    <h2 id="tr-veri">Hangi veriler var, nerede duruyor?</h2>
     <p>Uygulamanın çalışması için gereken bilgiler yalnızca cihazınızda tutulur ve hiçbir sunucuya, üçüncü tarafa veya bulut hizmetine gönderilmez.</p>
     <div class="table">
       <table>
-        <thead>
-          <tr><th scope="col">Veri</th><th scope="col">Toplanıyor mu?</th><th scope="col" class="hide-sm">Nerede?</th></tr>
-        </thead>
+        <thead><tr><th scope="col">Veri</th><th scope="col">Toplanıyor mu?</th><th scope="col" class="hide-sm">Nerede?</th></tr></thead>
         <tbody>
           <tr><td>Zikir sayıları ve özel zikirler</td><td><span class="pill">Hayır</span></td><td class="hide-sm">Yalnızca cihaz</td></tr>
           <tr><td>İstatistikler, seri ve rozetler</td><td><span class="pill">Hayır</span></td><td class="hide-sm">Yalnızca cihaz</td></tr>
@@ -203,14 +240,12 @@
     </div>
   </section>
 
-  <section aria-labelledby="izinler">
-    <h2 id="izinler">Uygulama izinleri</h2>
+  <section aria-labelledby="tr-izin">
+    <h2 id="tr-izin">Uygulama izinleri</h2>
     <p>Zikirmatik yalnızca sayaç deneyimi için gereken iki izni kullanır:</p>
     <div class="table">
       <table>
-        <thead>
-          <tr><th scope="col">İzin</th><th scope="col">Neden?</th></tr>
-        </thead>
+        <thead><tr><th scope="col">İzin</th><th scope="col">Neden?</th></tr></thead>
         <tbody>
           <tr><td>Titreşim</td><td>Her sayımda hafif dokunsal geri bildirim vermek için.</td></tr>
           <tr><td>Ses ayarları</td><td>Tesbih ve tıklama seslerini çalmak için.</td></tr>
@@ -220,13 +255,13 @@
     <p>Mikrofon, kamera, konum, kişiler veya depolama izni istenmez. “Ekranı açık tut” seçeneği de ek bir izin gerektirmez.</p>
   </section>
 
-  <section aria-labelledby="ucuncu">
-    <h2 id="ucuncu">İnternet ve üçüncü taraflar</h2>
+  <section aria-labelledby="tr-ucuncu">
+    <h2 id="tr-ucuncu">İnternet ve üçüncü taraflar</h2>
     <p>Uygulama tamamen çevrimdışı çalışır ve veri göndermek için internet kullanmaz. Herhangi bir analitik, reklam, çökme raporlama veya izleme hizmeti içermez.</p>
   </section>
 
-  <section aria-labelledby="silme">
-    <h2 id="silme">Verilerinizi silme</h2>
+  <section aria-labelledby="tr-silme">
+    <h2 id="tr-silme">Verilerinizi silme</h2>
     <p>Verileriniz sizin kontrolünüzdedir ve iki yolla tamamen silinebilir:</p>
     <div class="note">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
@@ -234,24 +269,136 @@
     </div>
   </section>
 
-  <section aria-labelledby="cocuk">
-    <h2 id="cocuk">Çocukların gizliliği</h2>
+  <section aria-labelledby="tr-cocuk">
+    <h2 id="tr-cocuk">Çocukların gizliliği</h2>
     <p>Zikirmatik, çocuklar dahil hiçbir yaş grubundaki kullanıcıdan kişisel bilgi toplamaz.</p>
   </section>
 
-  <section aria-labelledby="degisiklik">
-    <h2 id="degisiklik">Bu politikadaki değişiklikler</h2>
+  <section aria-labelledby="tr-degisiklik">
+    <h2 id="tr-degisiklik">Bu politikadaki değişiklikler</h2>
     <p>Politika güncellendiğinde yeni sürüm bu sayfada yayınlanır ve yukarıdaki “Son güncelleme” tarihi değişir.</p>
   </section>
 
-  <section aria-labelledby="iletisim">
-    <h2 id="iletisim">İletişim</h2>
-    <p>Gizlilikle ilgili sorularınız için: <a href="mailto:emrullahayin@gmail.com">emrullahayin@gmail.com</a></p>
+  <section aria-labelledby="tr-iletisim">
+    <h2 id="tr-iletisim">Geliştirici ve iletişim</h2>
+    <dl class="contact">
+      <dt>Geliştirici</dt><dd>Emrullah Ayın</dd>
+      <dt>E-posta</dt><dd><a href="mailto:emrullahayin@gmail.com">emrullahayin@gmail.com</a></dd>
+    </dl>
+  </section>
+</main>
+
+<!-- ───────────────────────── English ───────────────────────── -->
+<main class="wrap" data-lang="en" lang="en">
+  <ul class="summary" aria-label="Summary">
+    <li class="card">
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <strong>No data collected</strong>
+      <span>No account, no personal information, no usage tracking.</span>
+    </li>
+    <li class="card">
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+      <strong>On your device only</strong>
+      <span>All data is kept in your phone’s local storage.</span>
+    </li>
+    <li class="card">
+      <div class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><path d="M12 20h.01"/></svg></div>
+      <strong>Offline and ad-free</strong>
+      <span>No internet needed; no ads or analytics.</span>
+    </li>
+  </ul>
+
+  <section aria-labelledby="en-data">
+    <h2 id="en-data">What data exists and where is it stored?</h2>
+    <p>The information the app needs to work is kept only on your device and is never sent to any server, third party or cloud service.</p>
+    <div class="table">
+      <table>
+        <thead><tr><th scope="col">Data</th><th scope="col">Collected?</th><th scope="col" class="hide-sm">Where?</th></tr></thead>
+        <tbody>
+          <tr><td>Dhikr counts and custom dhikrs</td><td><span class="pill">No</span></td><td class="hide-sm">Device only</td></tr>
+          <tr><td>Statistics, streak and badges</td><td><span class="pill">No</span></td><td class="hide-sm">Device only</td></tr>
+          <tr><td>Theme and settings</td><td><span class="pill">No</span></td><td class="hide-sm">Device only</td></tr>
+          <tr><td>Location, contacts, photos</td><td><span class="pill">No</span></td><td class="hide-sm">—</td></tr>
+          <tr><td>Camera and microphone</td><td><span class="pill">No</span></td><td class="hide-sm">—</td></tr>
+          <tr><td>Advertising and device identifiers</td><td><span class="pill">No</span></td><td class="hide-sm">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="en-perm">
+    <h2 id="en-perm">App permissions</h2>
+    <p>Zikirmatik only uses the two permissions needed for the counter experience:</p>
+    <div class="table">
+      <table>
+        <thead><tr><th scope="col">Permission</th><th scope="col">Why?</th></tr></thead>
+        <tbody>
+          <tr><td>Vibration</td><td>To give light haptic feedback on each count.</td></tr>
+          <tr><td>Audio settings</td><td>To play the bead and click sound effects.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The app does not request microphone, camera, location, contacts or storage access. The “Keep screen on” option does not require any additional permission.</p>
+  </section>
+
+  <section aria-labelledby="en-third">
+    <h2 id="en-third">Internet and third parties</h2>
+    <p>The app works fully offline and does not use the internet to send any data. It contains no analytics, advertising, crash reporting or tracking services.</p>
+  </section>
+
+  <section aria-labelledby="en-delete">
+    <h2 id="en-delete">Deleting your data</h2>
+    <p>Your data is under your control and can be deleted completely in two ways:</p>
+    <div class="note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div>In the app, go to <strong>Ayarlar (Settings) → Tüm verileri sil (Delete all data)</strong>, or uninstall the app. Because the data only exists on your device, no copy remains anywhere else.</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="en-kids">
+    <h2 id="en-kids">Children’s privacy</h2>
+    <p>Zikirmatik does not collect personal information from users of any age, including children.</p>
+  </section>
+
+  <section aria-labelledby="en-changes">
+    <h2 id="en-changes">Changes to this policy</h2>
+    <p>When this policy is updated, the new version is published on this page and the “Last updated” date above changes.</p>
+  </section>
+
+  <section aria-labelledby="en-contact">
+    <h2 id="en-contact">Developer and contact</h2>
+    <dl class="contact">
+      <dt>Developer</dt><dd>Emrullah Ayın</dd>
+      <dt>Email</dt><dd><a href="mailto:emrullahayin@gmail.com">emrullahayin@gmail.com</a></dd>
+    </dl>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">© 2026 Zikirmatik</div>
+  <div class="wrap">© 2026 Emrullah Ayın · Zikirmatik</div>
 </footer>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('[data-set-lang]');
+    function apply(lang) {
+      document.documentElement.lang = lang;
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute('aria-pressed', String(buttons[i].getAttribute('data-set-lang') === lang));
+      }
+    }
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function () {
+        var lang = this.getAttribute('data-set-lang');
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+        var url = new URL(location.href);
+        url.searchParams.set('lang', lang);
+        history.replaceState(null, '', url);
+        apply(lang);
+      });
+    }
+    apply(document.documentElement.lang === 'en' ? 'en' : 'tr');
+  })();
+</script>
 </body>
 </html>
